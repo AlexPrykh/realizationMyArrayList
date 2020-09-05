@@ -40,11 +40,11 @@ public class MyArrayList implements List {
 
     @Override
     public void add(int index, Object o) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + size);
         }
         System.arraycopy(elements, index, elements, index + 1, size - index);
-        if (isIndexExist(index) <= size){
+        if (isIndexExist(index) <= size) {
             increaseCapacity();
         }
         elements[index] = o;
@@ -92,6 +92,13 @@ public class MyArrayList implements List {
                     return true;
                 }
             }
+        } else {
+            // compare elemenst with ==
+            for (int i = 0; i < size; i++) {
+                if (o == temp[i]) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -114,17 +121,22 @@ public class MyArrayList implements List {
     @Override
     public boolean remove(Object o) {
         Object[] temp = this.elements;
-        int size = this.size;
-        int i = 0;
         if (o == null) {
-            temp[i] = null;
-            i++;
-
-            System.arraycopy(temp, 0, elements, 0, i);
-            System.arraycopy(temp, i + 1, elements, i, temp.length - i - 1);
-            --size;
+            for (int i = 0; i < size; i++) {
+                if (temp[i] == null) {
+                     remove(i);
+                     return true;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(temp[i])) {
+                    remove(i);
+                    return true;
+                }
+            }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -154,9 +166,7 @@ public class MyArrayList implements List {
     @Override
     public boolean removeAll(Collection collection) {
         for (Object o : collection) {
-            if (o != null) {
-                remove(o);
-            }
+            remove(o);
         }
         return true;
     }
@@ -164,10 +174,8 @@ public class MyArrayList implements List {
     @Override
     public boolean containsAll(Collection collection) {
         for (Object o : collection) {
-            if (o != null) {
-                if (!contains(o)) {
-                    return false;
-                }
+            if (!contains(o)) {
+                return false;
             }
         }
         return true;

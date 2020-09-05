@@ -3,6 +3,8 @@ package testArray;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
@@ -84,12 +86,22 @@ class MyArrayListTest {
 
     @Test
     void removeAll() {
-        MyArrayList list1 = new MyArrayList();
+        // add elements to 'list'
+        // add 5 elements
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+
+        ArrayList list1 = new ArrayList();
         list1.add(1);
         list1.add(2);
         list1.add(3);
 
         Assert.assertTrue(list.removeAll(list1));
+        // check existing elements size
+        assertEquals(2, list.size());
     }
 
     @Test
@@ -99,7 +111,7 @@ class MyArrayListTest {
         actual.add(2);
         actual.add(3);
 
-        MyArrayList expected = new MyArrayList();
+        ArrayList expected = new ArrayList();
         expected.add(1);
         expected.add(2);
         expected.add(3);
