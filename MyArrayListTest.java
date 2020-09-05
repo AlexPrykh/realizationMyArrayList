@@ -120,5 +120,6 @@ class MyArrayListTest {
         assertNotNull(expected);
         Assert.assertTrue(actual.containsAll(expected));
         Assert.assertNotSame(expected, actual);
+        Assert.assertFalse(list.contains(34325));
     }
 }
